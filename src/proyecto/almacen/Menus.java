@@ -16,6 +16,7 @@ import static proyecto.almacen.OpcionesAdministrador.crearObjeto;
 import static proyecto.almacen.OpcionesAdministrador.modificarObjeto;
 import static proyecto.almacen.OpcionesAdministrador.quitarObjeto;
 import static proyecto.almacen.OpcionesAdministrador.rellenarObjeto;
+import static proyecto.almacen.OpcionesAdministrador.seleccionObjeto;
 import static proyecto.almacen.OpcionesUsuario.comprarAlimentos;
 import static proyecto.almacen.OpcionesUsuario.comprarJuguetes;
 import static proyecto.almacen.OpcionesUsuario.comprarMobiliario;
@@ -59,7 +60,7 @@ public class Menus {
                     case 2:
                         System.out.println("-------------------------");
                         boolean contraseña = pedirContraseña();
-                        if ( contraseña == true) {
+                        if (contraseña == true) {
                             menuAdministrador();
                         } else {
                             System.out.println("--------------------------------");
@@ -86,7 +87,7 @@ public class Menus {
         String url = "jdbc:mysql://localhost:3306/granalmacen";
         return DriverManager.getConnection(url, "root", "");//Hay que probarlo
     }
-    
+
     public static boolean pedirContraseña() {
         boolean confirmacion = false;
         System.out.println("Dime la contraseña:");
@@ -195,9 +196,4 @@ public class Menus {
         }
     }
 
-    public static String seleccionObjeto() { //Hay que hacer un menu
-        System.out.println("Dime el objeto");
-        String resultado = "";
-        return resultado;
-    }
 }
