@@ -5,8 +5,13 @@
  */
 package proyecto.almacen;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static proyecto.almacen.OpcionesAdministrador.crearObjeto;
 import static proyecto.almacen.OpcionesAdministrador.modificarObjeto;
 import static proyecto.almacen.OpcionesAdministrador.quitarObjeto;
@@ -48,11 +53,11 @@ public class Menus {
 
                 switch (opcion) {
                     case 1:
-                        System.out.println("Has seleccionado la opcion 1");
+                        System.out.println("-------------------------");
                         menuUsuario();
                         break;
                     case 2:
-                        System.out.println("Has seleccionado la opcion 2");
+                        System.out.println("-------------------------");
                         boolean contraseña = pedirContraseña();
                         if ( contraseña == true) {
                             menuAdministrador();
@@ -71,10 +76,17 @@ public class Menus {
             } catch (InputMismatchException e) {
                 System.out.println("Debes insertar un número");
                 lector.next();
+            } catch (SQLException ex) {
+                Logger.getLogger(Menus.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
+    public static Connection crearConexion() throws SQLException {
+        String url = "jdbc:mysql://localhost:3306/granalmacen";
+        return DriverManager.getConnection(url, "root", "");//Hay que probarlo
+    }
+    
     public static boolean pedirContraseña() {
         boolean confirmacion = false;
         System.out.println("Dime la contraseña:");
@@ -85,7 +97,7 @@ public class Menus {
         return confirmacion;
     }
 
-    public static void menuUsuario() {
+    public static void menuUsuario() throws SQLException {
         boolean salir = false;
         int opcion; //Guardaremos la opcion del usuario
 
@@ -106,19 +118,19 @@ public class Menus {
 
                 switch (opcion) {
                     case 1:
-                        System.out.println("Has seleccionado la opcion 1");
+                        System.out.println("-------------------------");
                         comprarAlimentos();
                         break;
                     case 2:
-                        System.out.println("Has seleccionado la opcion 2");
+                        System.out.println("-------------------------");
                         comprarMobiliario();
                         break;
                     case 3:
-                        System.out.println("Has seleccionado la opcion 1");
+                        System.out.println("-------------------------");
                         comprarJuguetes();
                         break;
                     case 4:
-                        System.out.println("Has seleccionado la opcion 1");
+                        System.out.println("-------------------------");
                         comprarRopa();
                         break;
                     case 5:
@@ -155,19 +167,19 @@ public class Menus {
 
                 switch (opcion) {
                     case 1:
-                        System.out.println("Has seleccionado la opcion 1");
+                        System.out.println("-------------------------");
                         crearObjeto(seleccionObjeto());
                         break;
                     case 2:
-                        System.out.println("Has seleccionado la opcion 2");
+                        System.out.println("-------------------------");
                         modificarObjeto(seleccionObjeto());
                         break;
                     case 3:
-                        System.out.println("Has seleccionado la opcion 3");
+                        System.out.println("-------------------------");
                         rellenarObjeto(seleccionObjeto());
                         break;
                     case 4:
-                        System.out.println("Has seleccionado la opcion 4");
+                        System.out.println("-------------------------");
                         quitarObjeto(seleccionObjeto());
                         break;
                     case 5:
