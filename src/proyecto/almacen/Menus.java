@@ -53,8 +53,13 @@ public class Menus {
                         break;
                     case 2:
                         System.out.println("Has seleccionado la opcion 2");
-                        if (pedirContraseña() == true) {
+                        boolean contraseña = pedirContraseña();
+                        if ( contraseña == true) {
                             menuAdministrador();
+                        } else {
+                            System.out.println("--------------------------------");
+                            System.out.println("Te has equivocado de contraseña.");
+                            System.out.println("--------------------------------");
                         }
                         break;
                     case 3:
@@ -74,7 +79,7 @@ public class Menus {
         boolean confirmacion = false;
         System.out.println("Dime la contraseña:");
         String respuesta = lector.nextLine();
-        if (respuesta == "probando") {
+        if ("probando".equals(respuesta)) {
             confirmacion = true;
         }
         return confirmacion;
@@ -92,7 +97,7 @@ public class Menus {
             System.out.println("    3. Juguetes");
             System.out.println("    4. Ropa");
             System.out.println(" ");
-            System.out.println("    5. Salir");
+            System.out.println("    5. Volver atras");
 
             try {
 
@@ -141,7 +146,7 @@ public class Menus {
             System.out.println("    3. Rellenar Stock");
             System.out.println("    4. Quitar Objeto");
             System.out.println(" ");
-            System.out.println("    5. Salir");
+            System.out.println("    5. Volver atras");
 
             try {
 
