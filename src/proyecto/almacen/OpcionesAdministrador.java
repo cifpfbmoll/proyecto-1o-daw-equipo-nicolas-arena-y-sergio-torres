@@ -5,8 +5,13 @@
  */
 package proyecto.almacen;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.InputMismatchException;
+import static proyecto.almacen.Menus.crearConexion;
 import static proyecto.almacen.Menus.lector;
 
 /**
@@ -39,19 +44,23 @@ public class OpcionesAdministrador {
                 switch (opcion) {
                     case 1:
                         System.out.println("-------------------------");
-                        seleccion = "alimento";
+                        seleccion = "alimentos";
+                        salir = true;
                         break;
                     case 2:
                         System.out.println("-------------------------");
                         seleccion = "muebles";
+                        salir = true;
                         break;
                     case 3:
                         System.out.println("-------------------------");
                         seleccion = "juguetes";
+                        salir = true;
                         break;
                     case 4:
                         System.out.println("-------------------------");
                         seleccion = "ropa";
+                        salir = true;
                         break;
                     case 5:
                         salir = true;
@@ -67,17 +76,60 @@ public class OpcionesAdministrador {
         return seleccion;
     }
 
-    public static void crearObjeto(String seleccion) {
-        //hacer la id
+    public static void crearObjeto(String seleccion) throws SQLException {
+        System.out.println("Dime la id que quieres poner:");
+        int id = Integer.parseInt(lector.nextLine());
         System.out.println("Dime el nombre");
         String nombre = lector.nextLine();
         System.out.println("Dime el stock:");
         int stock = Integer.parseInt(lector.nextLine());
         System.out.println("Dime el precio:");
         float precio = Float.parseFloat(lector.nextLine()); // Hasta aqui son los atributos comunes en los distintos objetos.
-        if (/*poner condicion sacando los valores de la base de datos*/) {
+        if ("alimentos".equals(seleccion)) {
             System.out.println("Dime el fecha de caducidad");
             Date fechaCaducidad = new Date(); //Probar
+            try (Connection con = crearConexion()) {
+                PreparedStatement prepStat = con.prepareStatement("INSERT INTO alimentos VALUES (?,?,?,?,?)");
+                prepStat.setInt(1, id);
+                prepStat.setString(2, nombre);
+                prepStat.setString(3, fechaCaducidad);
+                prepStat.setInt(4, stock);
+                prepStat.setFloat(5, precio);
+                prepStat.executeUpdate();
+            }
+        } else if ("ropa".equals(seleccion)) {
+            System.out.println("Dime el tamaño de la ropa:");
+            String tamaño = lector.nextLine();
+            try (Connection con = crearConexion()) {
+                PreparedStatement prepStat = con.prepareStatement("INSERT INTO ropa VALUES (?,?,?,?,?)");
+                prepStat.setInt(1, id);
+                prepStat.setString(2, nombre);
+                prepStat.setString(3, tamaño);
+                prepStat.setInt(4, stock);
+                prepStat.setFloat(5, precio);
+                prepStat.executeUpdate();
+            }
+        } else if ("muebles".equals(seleccion)) {
+            System.out.println("Dime el material del que esta hecho:");
+            String material = lector.nextLine();
+            try (Connection con = crearConexion()) {
+                PreparedStatement prepStat = con.prepareStatement("INSERT INTO muebles VALUES (?,?,?,?,?)");
+                prepStat.setInt(1, id);
+                prepStat.setString(2, nombre);
+                prepStat.setString(3, material);
+                prepStat.setInt(4, stock);
+                prepStat.setFloat(5, precio);
+                prepStat.executeUpdate();
+            }
+        } else {
+            try (Connection con = crearConexion()) {
+                PreparedStatement prepStat = con.prepareStatement("INSERT INTO juguetes VALUES (?,?,?,?)");
+                prepStat.setInt(1, id);
+                prepStat.setString(2, nombre);
+                prepStat.setInt(3, stock);
+                prepStat.setFloat(4, precio);
+                prepStat.executeUpdate();
+            }
         }
     }
 

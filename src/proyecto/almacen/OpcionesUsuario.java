@@ -6,6 +6,7 @@
 package proyecto.almacen;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -22,9 +23,9 @@ public class OpcionesUsuario {
 
     public static void comprarAlimentos() throws SQLException {
         try (Connection con = crearConexion()) {
-            Statement stat = con.createStatement();
-            ResultSet rset = stat.executeQuery("SELECT * FROM comida;");
-            System.out.println(rset);
+            PreparedStatement prepStat = con.prepareStatement("SELECT * FROM alimentos;");
+            ResultSet results = prepStat.executeQuery();
+            while(results.next()){}
             System.out.println("----------------------------");
             System.out.println("Dime que una id de comida para comprar "
                     + "o dime una letra para volver atras:");
@@ -37,9 +38,9 @@ public class OpcionesUsuario {
 
     public static void comprarMobiliario() throws SQLException {
         try (Connection con = crearConexion()) {
-            Statement stat = con.createStatement();
-            ResultSet rset = stat.executeQuery("SELECT * FROM muebles;");
-            System.out.println(rset);
+            PreparedStatement prepStat = con.prepareStatement("SELECT * FROM muebles;");
+            ResultSet results = prepStat.executeQuery();
+            //poner el next
             System.out.println("---------------------------");
             System.out.println("Dime que una id de comida para comprar "
                     + "o dime una letra para volver atras:");
@@ -51,9 +52,9 @@ public class OpcionesUsuario {
 
     public static void comprarJuguetes() throws SQLException {
         try (Connection con = crearConexion()) {
-            Statement stat = con.createStatement();
-            ResultSet rset = stat.executeQuery("SELECT * FROM juguetes;");
-            System.out.println(rset);
+            PreparedStatement prepStat = con.prepareStatement("SELECT * FROM juguetes;");
+            ResultSet results = prepStat.executeQuery();
+            //next
             System.out.println("---------------------------");
             System.out.println("Dime que una id de comida para comprar "
                     + "o dime una letra para volver atras:");
@@ -65,9 +66,9 @@ public class OpcionesUsuario {
 
     public static void comprarRopa() throws SQLException {
         try (Connection con = crearConexion()) {
-            Statement stat = con.createStatement();
-            ResultSet rset = stat.executeQuery("SELECT * FROM ropa;");
-            System.out.println(rset);
+            PreparedStatement prepStat = con.prepareStatement("SELECT * FROM ropa;");
+            ResultSet results = prepStat.executeQuery();
+            //next
             System.out.println("---------------------------");
             System.out.println("Dime que una id de comida para comprar "
                     + "o dime una letra para volver atras:");

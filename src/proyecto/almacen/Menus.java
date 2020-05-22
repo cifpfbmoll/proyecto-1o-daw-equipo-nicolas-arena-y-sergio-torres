@@ -147,7 +147,7 @@ public class Menus {
         }
     }
 
-    public static void menuAdministrador() {
+    public static void menuAdministrador() throws SQLException {
         boolean salir = false;
         int opcion; //Guardaremos la opcion del usuario
 
@@ -169,7 +169,8 @@ public class Menus {
                 switch (opcion) {
                     case 1:
                         System.out.println("-------------------------");
-                        crearObjeto(seleccionObjeto());
+                        String seleccionado= seleccionObjeto();
+                        crearObjeto(seleccionado);
                         break;
                     case 2:
                         System.out.println("-------------------------");
