@@ -196,5 +196,56 @@ public class Menus {
             }
         }
     }
+    
+        public static int menuCambio() {
+        int eleccion = 0;
+        boolean salir = false;
+        int opcion; //Guardaremos la opcion del usuario
+
+        while (!salir) {
+
+            System.out.println("Que quieres cambiar:");
+            System.out.println("    1. Cambiar nombre");
+            System.out.println("    2. Cambiar material");
+            System.out.println("    3. Cambiar Stock");
+            System.out.println("    4. Cambiar precio");
+            System.out.println(" ");
+            System.out.println("    5. Volver atras");
+
+            try {
+
+                System.out.println("Escribe una de las opciones");
+                opcion = Integer.parseInt(lector.nextLine());
+
+                switch (opcion) {
+                    case 1:
+                        System.out.println("-------------------------");
+                        eleccion = 1;
+                        break;
+                    case 2:
+                        System.out.println("-------------------------");
+                        eleccion = 2;
+                        break;
+                    case 3:
+                        System.out.println("-------------------------");
+                        eleccion = 3;
+                        break;
+                    case 4:
+                        System.out.println("-------------------------");
+                        eleccion = 4;
+                        break;
+                    case 5:
+                        salir = true;
+                        break;
+                    default:
+                        System.out.println("Solo números entre 1 y 5");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Debes insertar un número");
+                lector.next();
+            }
+        }
+        return eleccion;
+    }
 
 }

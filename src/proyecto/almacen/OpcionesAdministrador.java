@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.InputMismatchException;
 import static proyecto.almacen.Menus.crearConexion;
 import static proyecto.almacen.Menus.lector;
+import static proyecto.almacen.Menus.menuCambio;
 
 /**
  *
@@ -87,7 +88,7 @@ public class OpcionesAdministrador {
         float precio = Float.parseFloat(lector.nextLine()); // Hasta aqui son los atributos comunes en los distintos objetos.
         if ("alimentos".equals(seleccion)) {
             System.out.println("Dime el fecha de caducidad");
-            Date fechaCaducidad = new Date(); //Probar
+            Date fechaCaducidad = new Date(); //falla
             try (Connection con = crearConexion()) {
                 PreparedStatement prepStat = con.prepareStatement("INSERT INTO alimentos VALUES (?,?,?,?,?)");
                 prepStat.setInt(1, id);
@@ -129,16 +130,130 @@ public class OpcionesAdministrador {
                 prepStat.setInt(3, stock);
                 prepStat.setFloat(4, precio);
                 prepStat.executeUpdate();
+                //meter en un archivo la informacion que metemos en la base de datos
             }
         }
     }
 
-    public static void modificarObjeto(String seleccion) {
+    public static void modificarObjeto(String seleccion) throws SQLException { //Esto hay que probarlo, estoy probando formas de hacerlo
+        try (Connection con = crearConexion()) {
+            //mostrar la informacion de todos los objetos
+            PreparedStatement prepStat1 = con.prepareStatement("SELECT * FROM alimentos");
+            PreparedStatement prepStat2 = con.prepareStatement("SELECT * FROM ropa");
+            PreparedStatement prepStat3 = con.prepareStatement("SELECT * FROM muebles");
+            PreparedStatement prepStat4 = con.prepareStatement("SELECT * FROM juguetes");
+            ResultSet results1 = prepStat1.executeQuery();
+            ResultSet results2 = prepStat2.executeQuery();
+            ResultSet results3 = prepStat3.executeQuery();
+            ResultSet results4 = prepStat4.executeQuery();
+            System.out.println("-----------------------------");
+            while (results1.next()) {
+            }
+            System.out.println("-----------------------------");
+            while (results2.next()) {
+            }
+            System.out.println("-----------------------------");
+            while (results3.next()) {
+            }
+            System.out.println("-----------------------------");
+            while (results4.next()) {
+            }
+            System.out.println("-----------------------------");
+
+            //pedir la id para saber que objeto quiere modificar
+            System.out.println("Dime la id del objeto que quieres modificar:");
+            int idElegida = Integer.parseInt(lector.nextLine());
+            System.out.println("Dime que quieres cambiar");
+            int eleccion = menuCambio();
+            if (eleccion == 1) {
+                System.out.println("Dime el nombre nuevo que le quieres poner:");
+                String nombreCambiado = lector.nextLine();
+                PreparedStatement prepStat = con.prepareStatement("UPDATE muebles SET Nombre = ? where id = ?");
+                //prepStat.setInt(1, nombreTabla); --> este no se como hacerlo bien asi que lo quito por ahora y pondre otra cosa provisional
+                prepStat.setString(1, nombreCambiado);
+                prepStat.setInt(2, idElegida);
+                prepStat.executeUpdate();
+            } else if (eleccion == 2) {
+                //seria lo mismo que el anterior pero cambiando el campo
+            }
+
+        }
     }
 
-    public static void rellenarObjeto(String seleccion) {
+    public static void rellenarObjeto(String seleccion) throws SQLException {
+        try (Connection con = crearConexion()) {
+            //mostrar la informacion de todos los objetos
+            PreparedStatement prepStat1 = con.prepareStatement("SELECT * FROM alimentos");
+            PreparedStatement prepStat2 = con.prepareStatement("SELECT * FROM ropa");
+            PreparedStatement prepStat3 = con.prepareStatement("SELECT * FROM muebles");
+            PreparedStatement prepStat4 = con.prepareStatement("SELECT * FROM juguetes");
+            ResultSet results1 = prepStat1.executeQuery();
+            ResultSet results2 = prepStat2.executeQuery();
+            ResultSet results3 = prepStat3.executeQuery();
+            ResultSet results4 = prepStat4.executeQuery();
+            System.out.println("-----------------------------");
+            while (results1.next()) {
+            }
+            System.out.println("-----------------------------");
+            while (results2.next()) {
+            }
+            System.out.println("-----------------------------");
+            while (results3.next()) {
+            }
+            System.out.println("-----------------------------");
+            while (results4.next()) {
+            }
+            System.out.println("-----------------------------");
+
+            //pedir la id para saber que objeto quiere modificar
+            System.out.println("Dime la id del objeto que quieres aumentar el stock:");
+            int idElegida = Integer.parseInt(lector.nextLine());
+            //pedir stock para sumar
+            System.out.println("Dime cuanto quieres aumentar el stock:");
+            int aumentoStock = Integer.parseInt(lector.nextLine());
+            //hay que sacar el stock original. Creo que con un select guardando el valor deberia de servir.
+            int stockOriginal = 0;
+            //Hay que sacar el stock original y sumarle lo nuevo.
+            int stockTotal = stockOriginal + aumentoStock;
+            PreparedStatement prepStat = con.prepareStatement("UPDATE muebles SET Stock = ? where id = ?"); //todavia tengo que descubrir como hacer el interrogante de la tabla
+            prepStat.setInt(1, stockTotal);
+            prepStat.setInt(2, idElegida);
+            prepStat.executeUpdate();
+        }
     }
 
-    public static void quitarObjeto(String seleccion) {
+    public static void quitarObjeto(String seleccion) throws SQLException {
+        try (Connection con = crearConexion()) {
+            //mostrar la informacion de todos los objetos
+            PreparedStatement prepStat1 = con.prepareStatement("SELECT * FROM alimentos");
+            PreparedStatement prepStat2 = con.prepareStatement("SELECT * FROM ropa");
+            PreparedStatement prepStat3 = con.prepareStatement("SELECT * FROM muebles");
+            PreparedStatement prepStat4 = con.prepareStatement("SELECT * FROM juguetes");
+            ResultSet results1 = prepStat1.executeQuery();
+            ResultSet results2 = prepStat2.executeQuery();
+            ResultSet results3 = prepStat3.executeQuery();
+            ResultSet results4 = prepStat4.executeQuery();
+            System.out.println("-----------------------------");
+            while (results1.next()) {
+            }
+            System.out.println("-----------------------------");
+            while (results2.next()) {
+            }
+            System.out.println("-----------------------------");
+            while (results3.next()) {
+            }
+            System.out.println("-----------------------------");
+            while (results4.next()) {
+            }
+            System.out.println("-----------------------------");
+
+            //pedir la id para saber que objeto quiere modificar
+            System.out.println("Dime la id del objeto que quieres eliminar:");
+            int idElegida = Integer.parseInt(lector.nextLine());
+            //en teoria esto lo borra.
+            PreparedStatement prepStat = con.prepareStatement("DELETE FROM muebles where ?");
+            prepStat.setInt(1, idElegida);
+            prepStat.executeUpdate();
+        }
     }
 }

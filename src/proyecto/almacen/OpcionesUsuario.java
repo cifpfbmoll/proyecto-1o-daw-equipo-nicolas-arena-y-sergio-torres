@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Scanner;
 import static proyecto.almacen.Menus.crearConexion;
 
@@ -25,7 +24,9 @@ public class OpcionesUsuario {
         try (Connection con = crearConexion()) {
             PreparedStatement prepStat = con.prepareStatement("SELECT * FROM alimentos;");
             ResultSet results = prepStat.executeQuery();
-            while(results.next()){}
+            while (results.next()) {
+                System.out.println(results); //no funciona
+            }
             System.out.println("----------------------------");
             System.out.println("Dime que una id de comida para comprar "
                     + "o dime una letra para volver atras:");
@@ -40,7 +41,9 @@ public class OpcionesUsuario {
         try (Connection con = crearConexion()) {
             PreparedStatement prepStat = con.prepareStatement("SELECT * FROM muebles;");
             ResultSet results = prepStat.executeQuery();
-            //poner el next
+            while (results.next()) {
+                System.out.println(results); //no funciona
+            }
             System.out.println("---------------------------");
             System.out.println("Dime que una id de comida para comprar "
                     + "o dime una letra para volver atras:");
@@ -54,7 +57,9 @@ public class OpcionesUsuario {
         try (Connection con = crearConexion()) {
             PreparedStatement prepStat = con.prepareStatement("SELECT * FROM juguetes;");
             ResultSet results = prepStat.executeQuery();
-            //next
+            while (results.next()) {
+                System.out.println(results); //no funciona
+            }
             System.out.println("---------------------------");
             System.out.println("Dime que una id de comida para comprar "
                     + "o dime una letra para volver atras:");
@@ -68,7 +73,9 @@ public class OpcionesUsuario {
         try (Connection con = crearConexion()) {
             PreparedStatement prepStat = con.prepareStatement("SELECT * FROM ropa;");
             ResultSet results = prepStat.executeQuery();
-            //next
+            while (results.next()) {
+                System.out.println(results); //no funciona
+            }
             System.out.println("---------------------------");
             System.out.println("Dime que una id de comida para comprar "
                     + "o dime una letra para volver atras:");
