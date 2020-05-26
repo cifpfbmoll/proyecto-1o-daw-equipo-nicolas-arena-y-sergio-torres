@@ -16,7 +16,6 @@ import static proyecto.almacen.OpcionesAdministrador.crearObjeto;
 import static proyecto.almacen.OpcionesAdministrador.modificarObjeto;
 import static proyecto.almacen.OpcionesAdministrador.quitarObjeto;
 import static proyecto.almacen.OpcionesAdministrador.rellenarObjeto;
-import static proyecto.almacen.OpcionesAdministrador.seleccionObjeto;
 import static proyecto.almacen.OpcionesUsuario.comprarAlimentos;
 import static proyecto.almacen.OpcionesUsuario.comprarJuguetes;
 import static proyecto.almacen.OpcionesUsuario.comprarMobiliario;
@@ -169,7 +168,7 @@ public class Menus {
                 switch (opcion) {
                     case 1:
                         System.out.println("-------------------------");
-                        String seleccionado= seleccionObjeto();
+                        String seleccionado = seleccionObjeto();
                         crearObjeto(seleccionado);
                         break;
                     case 2:
@@ -196,19 +195,20 @@ public class Menus {
             }
         }
     }
-    
-        public static int menuCambio() {
-        int eleccion = 0;
+
+    public static String seleccionObjeto() { //Hay que hacer un menu
         boolean salir = false;
         int opcion; //Guardaremos la opcion del usuario
 
+        String seleccion = "";
+
         while (!salir) {
 
-            System.out.println("Que quieres cambiar:");
-            System.out.println("    1. Cambiar nombre");
-            System.out.println("    2. Cambiar material");
-            System.out.println("    3. Cambiar Stock");
-            System.out.println("    4. Cambiar precio");
+            System.out.println("Que objeto quieres:");
+            System.out.println("    1. alimento");
+            System.out.println("    2. muebles");
+            System.out.println("    3. juguetes");
+            System.out.println("    4. ropa");
             System.out.println(" ");
             System.out.println("    5. Volver atras");
 
@@ -220,19 +220,23 @@ public class Menus {
                 switch (opcion) {
                     case 1:
                         System.out.println("-------------------------");
-                        eleccion = 1;
+                        seleccion = "alimentos";
+                        salir = true;
                         break;
                     case 2:
                         System.out.println("-------------------------");
-                        eleccion = 2;
+                        seleccion = "muebles";
+                        salir = true;
                         break;
                     case 3:
                         System.out.println("-------------------------");
-                        eleccion = 3;
+                        seleccion = "juguetes";
+                        salir = true;
                         break;
                     case 4:
                         System.out.println("-------------------------");
-                        eleccion = 4;
+                        seleccion = "ropa";
+                        salir = true;
                         break;
                     case 5:
                         salir = true;
@@ -244,6 +248,82 @@ public class Menus {
                 System.out.println("Debes insertar un número");
                 lector.next();
             }
+        }
+        return seleccion;
+    }
+
+    public static String menuCambio(String seleccion) {
+        String eleccion = "";
+        boolean salir = false;
+        int opcion; //Guardaremos la opcion del usuario
+
+        while (!salir) {
+
+            System.out.println("Que quieres cambiar:");
+            System.out.println("    1. Cambiar nombre");
+            System.out.println("    2. Cambiar Stock");
+            System.out.println("    3. Cambiar precio");
+            if (null != seleccion) switch (seleccion) {
+                case "muebles":
+                    System.out.println("    4. Cambiar material");
+                    break;
+                case "alimentos":
+                    System.out.println("4. Fecha de caducidad");
+                    break;
+                case "ropa":
+                    System.out.println("4. Tamaño");
+                    break;
+                default:
+                    break;
+            }
+            System.out.println(" ");
+            System.out.println("    0. Volver atras");
+
+            try {
+
+                System.out.println("Escribe una de las opciones");
+                opcion = Integer.parseInt(lector.nextLine());
+
+                switch (opcion) {
+                    case 1:
+                        System.out.println("-------------------------");
+                        eleccion = "Nombre";
+                        break;
+                    case 2:
+                        System.out.println("-------------------------");
+                        eleccion = "Stock";
+                        break;
+                    case 3:
+                        System.out.println("-------------------------");
+                        eleccion = "Precio";
+                        break;
+                    case 4:
+                        System.out.println("-------------------------");
+                        if (null != seleccion) switch (seleccion) {
+                    case "muebles":
+                        eleccion = "Material";
+                        break;
+                    case "alimentos":
+                        eleccion = "Fecha caducidad";
+                        break;
+                    case "ropa":
+                        eleccion = "Tamaño";
+                        break;
+                    default:
+                        break;
+                }
+                        break;
+                    case 0:
+                        salir = true;
+                        break;
+                    default:
+                        System.out.println("Solo números entre 1 y 5");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Debes insertar un número");
+                lector.next();
+            }
+            salir = true;
         }
         return eleccion;
     }

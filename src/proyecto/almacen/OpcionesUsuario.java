@@ -45,7 +45,7 @@ public class OpcionesUsuario {
                 System.out.println(results); //no funciona
             }
             System.out.println("---------------------------");
-            System.out.println("Dime que una id de comida para comprar "
+            System.out.println("Dime que una id de muebles para comprar "
                     + "o dime una letra para volver atras:");
             int pedido = Integer.parseInt(lector.nextLine());
         } catch (NumberFormatException nfe) {
@@ -61,7 +61,7 @@ public class OpcionesUsuario {
                 System.out.println(results); //no funciona
             }
             System.out.println("---------------------------");
-            System.out.println("Dime que una id de comida para comprar "
+            System.out.println("Dime que una id de juguetes para comprar "
                     + "o dime una letra para volver atras:");
             int pedido = Integer.parseInt(lector.nextLine());
         } catch (NumberFormatException nfe) {
@@ -77,7 +77,7 @@ public class OpcionesUsuario {
                 System.out.println(results); //no funciona
             }
             System.out.println("---------------------------");
-            System.out.println("Dime que una id de comida para comprar "
+            System.out.println("Dime que una id de ropa para comprar "
                     + "o dime una letra para volver atras:");
             int pedido = Integer.parseInt(lector.nextLine());
         } catch (NumberFormatException nfe) {
