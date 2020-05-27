@@ -264,18 +264,20 @@ public class Menus {
             System.out.println("    1. Cambiar nombre");
             System.out.println("    2. Cambiar Stock");
             System.out.println("    3. Cambiar precio");
-            if (null != seleccion) switch (seleccion) {
-                case "muebles":
-                    System.out.println("    4. Cambiar material");
-                    break;
-                case "alimentos":
-                    System.out.println("4. Fecha de caducidad");
-                    break;
-                case "ropa":
-                    System.out.println("4. Tamaño");
-                    break;
-                default:
-                    break;
+            if (null != seleccion) {
+                switch (seleccion) {
+                    case "muebles":
+                        System.out.println("    4. Cambiar material");
+                        break;
+                    case "alimentos":
+                        System.out.println("4. Fecha de caducidad");
+                        break;
+                    case "ropa":
+                        System.out.println("4. Tamaño");
+                        break;
+                    default:
+                        break;
+                }
             }
             System.out.println(" ");
             System.out.println("    0. Volver atras");
@@ -300,19 +302,21 @@ public class Menus {
                         break;
                     case 4:
                         System.out.println("-------------------------");
-                        if (null != seleccion) switch (seleccion) {
-                    case "muebles":
-                        eleccion = "Material";
-                        break;
-                    case "alimentos":
-                        eleccion = "Fecha caducidad";
-                        break;
-                    case "ropa":
-                        eleccion = "Tamaño";
-                        break;
-                    default:
-                        break;
-                }
+                        if (null != seleccion) {
+                            switch (seleccion) {
+                                case "muebles":
+                                    eleccion = "Material";
+                                    break;
+                                case "alimentos":
+                                    eleccion = "Fecha caducidad";
+                                    break;
+                                case "ropa":
+                                    eleccion = "Tamaño";
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
                         break;
                     case 0:
                         salir = true;
@@ -329,4 +333,40 @@ public class Menus {
         return eleccion;
     }
 
+    public static boolean menuPrecio(int precio) { //Hay que hacer un menu
+        boolean salir = false;
+        int opcion; //Guardaremos la opcion del usuario
+
+        boolean eleccion = false;
+
+        while (!salir) {
+
+            System.out.println("El precio es " + precio + ", estas seguro de que quieres comprar?");
+            System.out.println("    1. Sí");
+            System.out.println("    2. No");
+
+            try {
+
+                System.out.println("Escribe una de las opciones");
+                opcion = Integer.parseInt(lector.nextLine());
+
+                switch (opcion) {
+                    case 1:
+                        eleccion = true;
+                        salir = true;
+                        break;
+                    case 2:
+                        eleccion = false;
+                        salir = true;
+                        break;
+                    default:
+                        System.out.println("Solo números entre 1 y 2");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Debes insertar un número");
+                lector.next();
+            }
+        }
+        return eleccion;
+    }
 }

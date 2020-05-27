@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 import static proyecto.almacen.Menus.crearConexion;
+import static proyecto.almacen.Menus.menuPrecio;
 
 /**
  *
@@ -42,7 +43,7 @@ public class OpcionesUsuario {
             prepStat = con.prepareStatement("SELECT Stock FROM alimentos where Id = ?;");
             prepStat.setInt(1, pedido);
             results = prepStat.executeQuery();
-            results.next();
+            results.next(); //revisar
             int stock = results.getInt("Stock");
             int compra = stock - cantidad;
             prepStat = con.prepareStatement("UPDATE alimentos SET Stock = ? where id = ?");
@@ -72,15 +73,27 @@ public class OpcionesUsuario {
             System.out.println("----------------------------");
             System.out.println("Dime la cantidad que quieres comprar:");
             int cantidad = Integer.parseInt(lector.nextLine());
-            prepStat = con.prepareStatement("SELECT Stock FROM muebles where Id = ?;");
+            prepStat = con.prepareStatement("SELECT Precio FROM muebles where Id = ?;");
             prepStat.setInt(1, pedido);
             results = prepStat.executeQuery();
-            while(results.next()){
-            int stock = results.getInt("Stock");
-            int compra = stock - cantidad;
-            prepStat = con.prepareStatement("UPDATE muebles SET Stock = ? where id = ?");
-            prepStat.setInt(1, compra);
-            prepStat.setInt(2, pedido);
+            while (results.next()) { //revisar, en los demas tambien hay que ponerlo
+                int precio = results.getInt("Precio");
+                boolean eleccion = menuPrecio(precio);
+
+                if (eleccion == true) {
+                    prepStat = con.prepareStatement("SELECT Stock FROM muebles where Id = ?;");
+                    prepStat.setInt(1, pedido);
+                    results = prepStat.executeQuery();
+                    while (results.next()) {
+                        int stock = results.getInt("Stock");
+                        int compra = stock - cantidad;
+                        prepStat = con.prepareStatement("UPDATE muebles SET Stock = ? where id = ?");
+                        prepStat.setInt(1, compra);
+                        prepStat.setInt(2, pedido);
+                    }
+                } else {
+                    System.out.println("Has salido sin comprar");
+                }
             }
         } catch (NumberFormatException nfe) {
             System.out.println("--------------------------------");
@@ -108,7 +121,7 @@ public class OpcionesUsuario {
             prepStat = con.prepareStatement("SELECT Stock FROM juguetes where Id = ?;");
             prepStat.setInt(1, pedido);
             results = prepStat.executeQuery();
-            results.next();
+            results.next(); //esta mal
             int stock = results.getInt("Stock");
             int compra = stock - cantidad;
             prepStat = con.prepareStatement("UPDATE jugetes SET Stock = ? where id = ?");
@@ -141,7 +154,7 @@ public class OpcionesUsuario {
             prepStat = con.prepareStatement("SELECT Stock FROM ropa where Id = ?;");
             prepStat.setInt(1, pedido);
             results = prepStat.executeQuery();
-            results.next();
+            results.next(); //revisar
             int stock = results.getInt("Stock");
             int compra = stock - cantidad;
             prepStat = con.prepareStatement("UPDATE ropa SET Stock = ? where id = ?");
