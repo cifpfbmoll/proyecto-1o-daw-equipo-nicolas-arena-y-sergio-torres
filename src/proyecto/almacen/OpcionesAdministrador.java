@@ -10,9 +10,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.InputMismatchException;
+import java.util.Scanner;
 import static proyecto.almacen.Menus.crearConexion;
-import static proyecto.almacen.Menus.lector;
 import static proyecto.almacen.Menus.menuCambio;
 
 /**
@@ -20,6 +19,8 @@ import static proyecto.almacen.Menus.menuCambio;
  * @author Nicolás
  */
 public class OpcionesAdministrador {
+
+    static Scanner lector = new Scanner(System.in);
 
     public static void crearObjeto(String seleccion) throws SQLException {
         System.out.println("Dime la id que quieres poner:");
@@ -78,13 +79,26 @@ public class OpcionesAdministrador {
         }
     }
 
-    public static void modificarObjeto(String seleccion) throws SQLException { //Funciona se supone
+    public static void modificarObjeto(String seleccion) throws SQLException { //Funciona menos alimentos por la fecha
         try (Connection con = crearConexion()) {
             //mostrar la informacion de todos los objetos
             System.out.println("-----------------------------");
             PreparedStatement prepStat = con.prepareStatement("SELECT * FROM " + seleccion);
             ResultSet results = prepStat.executeQuery();
             while (results.next()) {
+                int id = results.getInt("Id");
+                String nombre = results.getString("Nombre");
+                String alomejor = "";
+                if ("muebles".equals(seleccion)) {
+                    alomejor = results.getString("material");
+                } else if ("ropa".equals(seleccion)) {
+                    alomejor = results.getString("Tamaño");
+                } else if ("Fecha caducidad".equals(seleccion)) {
+                    alomejor = results.getString("Fecha caducidad");
+                }
+                int stock = results.getInt("Stock");
+                float precio = results.getFloat("Precio");
+                System.out.println(id + " | " + nombre + " | " + alomejor + " | " + stock + " | " + precio);
             }
             System.out.println("-----------------------------");
             //pedir la id para saber que objeto quiere modificar
@@ -101,13 +115,26 @@ public class OpcionesAdministrador {
         }
     }
 
-    public static void rellenarObjeto(String seleccion) throws SQLException {
+    public static void rellenarObjeto(String seleccion) throws SQLException { //Funciona menos alimentos por la fecha
         try (Connection con = crearConexion()) {
             //mostrar la informacion de todos los objetos
             System.out.println("-----------------------------");
             PreparedStatement prepStat = con.prepareStatement("SELECT * FROM " + seleccion);
             ResultSet results = prepStat.executeQuery();
             while (results.next()) {
+                int id = results.getInt("Id");
+                String nombre = results.getString("Nombre");
+                String alomejor = "";
+                if ("muebles".equals(seleccion)) {
+                    alomejor = results.getString("material");
+                } else if ("ropa".equals(seleccion)) {
+                    alomejor = results.getString("Tamaño");
+                } else if ("Fecha caducidad".equals(seleccion)) {
+                    alomejor = results.getString("Fecha caducidad");
+                }
+                int stock = results.getInt("Stock");
+                float precio = results.getFloat("Precio");
+                System.out.println(id + " | " + nombre + " | " + alomejor + " | " + stock + " | " + precio);
             }
             System.out.println("-----------------------------");
             //pedir la id para saber que objeto quiere modificar
@@ -116,10 +143,12 @@ public class OpcionesAdministrador {
             //pedir stock para sumar
             System.out.println("Dime cuanto quieres aumentar el stock:");
             int aumentoStock = Integer.parseInt(lector.nextLine());
-            //hay que sacar el stock original. Creo que con un select guardando el valor deberia de servir.
-            int stockOriginal = 0;
-            //Hay que sacar el stock original y sumarle lo nuevo.
-            int stockTotal = stockOriginal + aumentoStock;
+            prepStat = con.prepareStatement("SELECT Stock FROM alimentos where Id = ?;");
+            prepStat.setInt(1, idElegida);
+            results = prepStat.executeQuery();
+            results.next();
+            int stock = results.getInt("Stock");
+            int stockTotal = stock + aumentoStock;
             prepStat = con.prepareStatement("UPDATE " + seleccion + " SET Stock = ? where id = ?");
             prepStat.setInt(1, stockTotal);
             prepStat.setInt(2, idElegida);
@@ -127,13 +156,26 @@ public class OpcionesAdministrador {
         }
     }
 
-    public static void quitarObjeto(String seleccion) throws SQLException { //Este deberia funcionar
+    public static void quitarObjeto(String seleccion) throws SQLException { //Este deberia funcionaros
         try (Connection con = crearConexion()) {
             //mostrar la informacion de todos los objetos
             System.out.println("-----------------------------");
             PreparedStatement prepStat = con.prepareStatement("SELECT * FROM " + seleccion);
             ResultSet results = prepStat.executeQuery();
             while (results.next()) {
+                int id = results.getInt("Id");
+                String nombre = results.getString("Nombre");
+                String alomejor = "";
+                if ("muebles".equals(seleccion)) {
+                    alomejor = results.getString("material");
+                } else if ("ropa".equals(seleccion)) {
+                    alomejor = results.getString("Tamaño");
+                } else if ("Fecha caducidad".equals(seleccion)) {
+                    alomejor = results.getString("Fecha caducidad");
+                }
+                int stock = results.getInt("Stock");
+                float precio = results.getFloat("Precio");
+                System.out.println(id + " | " + nombre + " | " + alomejor + " | " + stock + " | " + precio);
             }
             System.out.println("-----------------------------");
             //pedir la id para saber que objeto quiere modificar
