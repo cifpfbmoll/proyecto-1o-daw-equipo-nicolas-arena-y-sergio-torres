@@ -333,21 +333,22 @@ public class Menus {
         return eleccion;
     }
 
-    public static boolean menuPrecio(int precio) { //Hay que hacer un menu
+    public static boolean menuPrecio(int precio, int cantidad) { //Hay que hacer un menu
         boolean salir = false;
         int opcion; //Guardaremos la opcion del usuario
+        int total = precio * cantidad;
 
         boolean eleccion = false;
 
         while (!salir) {
 
-            System.out.println("El precio es " + precio + ", estas seguro de que quieres comprar?");
+            System.out.println("El precio es " + total + ", estas seguro de que quieres comprar?");
             System.out.println("    1. Sí");
             System.out.println("    2. No");
 
             try {
 
-                System.out.println("Escribe una de las opciones");
+                System.out.println("Escribe uno de los numeros");
                 opcion = Integer.parseInt(lector.nextLine());
 
                 switch (opcion) {

@@ -6,6 +6,7 @@
 package proyecto.almacen;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,6 +22,11 @@ public class OpcionesUsuario {
 
     static Scanner lector = new Scanner(System.in);
 
+    /**
+     * Con esto compramos los alimentos
+     *
+     * @throws SQLException
+     */
     public static void comprarAlimentos() throws SQLException {
         try (Connection con = crearConexion()) {
             PreparedStatement prepStat = con.prepareStatement("SELECT * FROM alimentos;");
@@ -28,7 +34,7 @@ public class OpcionesUsuario {
             while (results.next()) {
                 int id = results.getInt("Id");
                 String nombre = results.getString("Nombre");
-                String fechaCaducidad = results.getString("Fecha caducidad");//esto esta mal porque deberia ser un date pero no va
+                Date fechaCaducidad = results.getDate("Fecha caducidad");//esto esta mal
                 int stock = results.getInt("Stock");
                 float precio = results.getFloat("Precio");
                 System.out.println(id + " | " + nombre + " | " + fechaCaducidad + " | " + stock + " | " + precio);
@@ -78,15 +84,16 @@ public class OpcionesUsuario {
             results = prepStat.executeQuery();
             while (results.next()) { //revisar, en los demas tambien hay que ponerlo
                 int precio = results.getInt("Precio");
-                boolean eleccion = menuPrecio(precio);
-
+                boolean eleccion = menuPrecio(precio, cantidad);
                 if (eleccion == true) {
                     prepStat = con.prepareStatement("SELECT Stock FROM muebles where Id = ?;");
                     prepStat.setInt(1, pedido);
                     results = prepStat.executeQuery();
+                    int compra = 0;
+                    int stock = 0;
                     while (results.next()) {
-                        int stock = results.getInt("Stock");
-                        int compra = stock - cantidad;
+                        stock = results.getInt("Stock");
+                        compra = stock - cantidad;
                         prepStat = con.prepareStatement("UPDATE muebles SET Stock = ? where id = ?");
                         prepStat.setInt(1, compra);
                         prepStat.setInt(2, pedido);

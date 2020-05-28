@@ -10,6 +10,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import static proyecto.almacen.Menus.crearConexion;
 import static proyecto.almacen.Menus.menuCambio;
@@ -32,8 +34,10 @@ public class OpcionesAdministrador {
         System.out.println("Dime el precio:");
         float precio = Float.parseFloat(lector.nextLine()); // Hasta aqui son los atributos comunes en los distintos objetos.
         if ("alimentos".equals(seleccion)) {
-            System.out.println("Dime el fecha de caducidad");
-            Date fechaCaducidad = new Date(); //falla
+            System.out.println("Dime la fecha de caducidad con el formato dd/MM/yyyy:");
+            //convertir el string en date
+            String fechaCaducidad = lector.nextLine(); //no funciona
+            parseFecha(fechaCaducidad);
             try (Connection con = crearConexion()) {
                 PreparedStatement prepStat = con.prepareStatement("INSERT INTO alimentos VALUES (?,?,?,?,?)");
                 prepStat.setInt(1, id);
@@ -79,10 +83,20 @@ public class OpcionesAdministrador {
         }
     }
 
+    public static Date parseFecha(String texto) { //No funciona
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        Date fechaDate = null;
+        try {
+            fechaDate = (Date) formato.parse(texto);
+        } catch (ParseException ex) {
+            System.out.println(ex);
+        }
+        return fechaDate;
+    }
+
     public static void modificarObjeto(String seleccion) throws SQLException { //Funciona menos alimentos por la fecha
         try (Connection con = crearConexion()) {
             //mostrar la informacion de todos los objetos
-            System.out.println("-----------------------------");
             PreparedStatement prepStat = con.prepareStatement("SELECT * FROM " + seleccion);
             ResultSet results = prepStat.executeQuery();
             while (results.next()) {
@@ -118,7 +132,6 @@ public class OpcionesAdministrador {
     public static void rellenarObjeto(String seleccion) throws SQLException { //Funciona menos alimentos por la fecha
         try (Connection con = crearConexion()) {
             //mostrar la informacion de todos los objetos
-            System.out.println("-----------------------------");
             PreparedStatement prepStat = con.prepareStatement("SELECT * FROM " + seleccion);
             ResultSet results = prepStat.executeQuery();
             while (results.next()) {
@@ -138,7 +151,7 @@ public class OpcionesAdministrador {
             }
             System.out.println("-----------------------------");
             //pedir la id para saber que objeto quiere modificar
-            System.out.println("Dime la id del objeto que quieres modificar:");
+            System.out.println("Dime la id del objeto que quieres aumentar:");
             int idElegida = Integer.parseInt(lector.nextLine());
             //pedir stock para sumar
             System.out.println("Dime cuanto quieres aumentar el stock:");
@@ -146,7 +159,7 @@ public class OpcionesAdministrador {
             prepStat = con.prepareStatement("SELECT Stock FROM alimentos where Id = ?;");
             prepStat.setInt(1, idElegida);
             results = prepStat.executeQuery();
-            results.next();
+            results.next(); //No funciona el update y el while de aqui no esta bien
             int stock = results.getInt("Stock");
             int stockTotal = stock + aumentoStock;
             prepStat = con.prepareStatement("UPDATE " + seleccion + " SET Stock = ? where id = ?");
@@ -159,7 +172,6 @@ public class OpcionesAdministrador {
     public static void quitarObjeto(String seleccion) throws SQLException { //Este deberia funcionaros
         try (Connection con = crearConexion()) {
             //mostrar la informacion de todos los objetos
-            System.out.println("-----------------------------");
             PreparedStatement prepStat = con.prepareStatement("SELECT * FROM " + seleccion);
             ResultSet results = prepStat.executeQuery();
             while (results.next()) {
