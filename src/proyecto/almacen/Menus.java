@@ -5,6 +5,7 @@
  */
 package proyecto.almacen;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -79,6 +80,8 @@ public class Menus {
                 lector.next();
             } catch (SQLException ex) {
                 Logger.getLogger(Menus.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Menus.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -147,7 +150,7 @@ public class Menus {
         }
     }
 
-    public static void menuAdministrador() throws SQLException {
+    public static void menuAdministrador() throws SQLException, IOException {
         boolean salir = false;
         int opcion; //Guardaremos la opcion del usuario
 
@@ -270,10 +273,10 @@ public class Menus {
                         System.out.println("    4. Cambiar material");
                         break;
                     case "alimentos":
-                        System.out.println("4. Fecha de caducidad");
+                        System.out.println("    4. Fecha de caducidad");
                         break;
                     case "ropa":
-                        System.out.println("4. Tamaño");
+                        System.out.println("    4. Tamaño");
                         break;
                     default:
                         break;
@@ -322,7 +325,7 @@ public class Menus {
                         salir = true;
                         break;
                     default:
-                        System.out.println("Solo números entre 1 y 5");
+                        System.out.println("Solo números entre 0 y 4");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Debes insertar un número");

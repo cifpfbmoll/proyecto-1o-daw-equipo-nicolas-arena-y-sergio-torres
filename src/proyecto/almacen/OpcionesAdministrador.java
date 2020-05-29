@@ -5,6 +5,9 @@
  */
 package proyecto.almacen;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -15,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import static proyecto.almacen.Menus.crearConexion;
 import static proyecto.almacen.Menus.menuCambio;
+import static proyecto.almacen.Streams.streamBuffer;
 
 /**
  *
@@ -24,7 +28,7 @@ public class OpcionesAdministrador {
 
     static Scanner lector = new Scanner(System.in);
 
-    public static void crearObjeto(String seleccion) throws SQLException {
+    public static void crearObjeto(String seleccion) throws SQLException, IOException {
         System.out.println("Dime la id que quieres poner:");
         int id = Integer.parseInt(lector.nextLine());
         System.out.println("Dime el nombre");
@@ -81,6 +85,7 @@ public class OpcionesAdministrador {
                 prepStat.executeUpdate();
             }
         }
+        streamBuffer("Has hecho un insert con la id = " + id + " y con el nombre = " + nombre);
     }
 
     public static Date parseFecha(String texto) { //No funciona
@@ -116,7 +121,8 @@ public class OpcionesAdministrador {
             }
             System.out.println("-----------------------------");
             //pedir la id para saber que objeto quiere modificar
-            System.out.println("Dime la id del objeto que quieres modificar:");
+            System.out.println("Dime la id del objeto que quieres modificar "
+                    + "o dime una letra para volver atras:");
             int idElegida = Integer.parseInt(lector.nextLine());
             System.out.println("Dime que quieres cambiar");
             String eleccion = menuCambio(seleccion);
@@ -126,6 +132,8 @@ public class OpcionesAdministrador {
             prepStat.setString(1, stockCambiado);
             prepStat.setInt(2, idElegida);
             prepStat.executeUpdate();
+        } catch (NumberFormatException nfe) {
+            System.out.println("--------------------------------");
         }
     }
 
@@ -151,7 +159,8 @@ public class OpcionesAdministrador {
             }
             System.out.println("-----------------------------");
             //pedir la id para saber que objeto quiere modificar
-            System.out.println("Dime la id del objeto que quieres aumentar:");
+            System.out.println("Dime la id del objeto que quieres aumentar "
+                    + "o dime una letra para volver atras:");
             int idElegida = Integer.parseInt(lector.nextLine());
             //pedir stock para sumar
             System.out.println("Dime cuanto quieres aumentar el stock:");
@@ -166,6 +175,8 @@ public class OpcionesAdministrador {
             prepStat.setInt(1, stockTotal);
             prepStat.setInt(2, idElegida);
             prepStat.executeUpdate();
+        } catch (NumberFormatException nfe) {
+            System.out.println("--------------------------------");
         }
     }
 
@@ -191,12 +202,15 @@ public class OpcionesAdministrador {
             }
             System.out.println("-----------------------------");
             //pedir la id para saber que objeto quiere modificar
-            System.out.println("Dime la id del objeto que quieres modificar:");
+            System.out.println("Dime la id del objeto que quieres modificar "
+                    + "o dime una letra para volver atras:");
             int idElegida = Integer.parseInt(lector.nextLine());
             //en teoria esto lo borra.
             prepStat = con.prepareStatement("DELETE FROM " + seleccion + " where ?");
             prepStat.setInt(1, idElegida);
             prepStat.executeUpdate();
+        } catch (NumberFormatException nfe) {
+            System.out.println("--------------------------------");
         }
     }
 }
