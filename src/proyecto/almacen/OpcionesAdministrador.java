@@ -31,14 +31,14 @@ public class OpcionesAdministrador {
     public static void crearObjeto(String seleccion) throws SQLException, IOException {
         System.out.println("Dime la id que quieres poner:");
         int id = Integer.parseInt(lector.nextLine());
-        System.out.println("Dime el nombre");
+        System.out.println("Dime el nombre:");
         String nombre = lector.nextLine();
         System.out.println("Dime el stock:");
         int stock = Integer.parseInt(lector.nextLine());
         System.out.println("Dime el precio:");
         float precio = Float.parseFloat(lector.nextLine()); // Hasta aqui son los atributos comunes en los distintos objetos.
         if ("alimentos".equals(seleccion)) {
-            System.out.println("Dime la fecha de caducidad con el formato dd/MM/yyyy:");
+            System.out.println("Dime la fecha de caducidad con el formato yyyy-MM-dd:"); // La fecha hay que meterla en este formato aunque no entendemos porque funciona
             //convertir el string en date
             String fechaCaducidad = lector.nextLine(); //no funciona
             parseFecha(fechaCaducidad);
@@ -85,10 +85,10 @@ public class OpcionesAdministrador {
                 prepStat.executeUpdate();
             }
         }
-        streamBuffer("Has hecho un insert con la id = " + id + " y con el nombre = " + nombre);
+        streamBuffer("Has hecho un insert con la id = " + id + " y con el nombre = " + nombre); // guardamos en un log que has creado un objeto
     }
 
-    public static Date parseFecha(String texto) { //No funciona
+    public static Date parseFecha(String texto) { //Funciona pero sale un error extraño
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         Date fechaDate = null;
         try {
@@ -99,7 +99,7 @@ public class OpcionesAdministrador {
         return fechaDate;
     }
 
-    public static void modificarObjeto(String seleccion) throws SQLException { //Funciona menos alimentos por la fecha
+    public static void modificarObjeto(String seleccion) throws SQLException, IOException { //Funciona menos alimentos por la fecha
         try (Connection con = crearConexion()) {
             //mostrar la informacion de todos los objetos
             PreparedStatement prepStat = con.prepareStatement("SELECT * FROM " + seleccion);
@@ -127,17 +127,18 @@ public class OpcionesAdministrador {
             System.out.println("Dime que quieres cambiar");
             String eleccion = menuCambio(seleccion);
             System.out.println("Dime el " + eleccion + " nuevo que le quieres poner:");
-            String stockCambiado = lector.nextLine();
+            String opcionCambiada = lector.nextLine();
             prepStat = con.prepareStatement("UPDATE " + seleccion + " SET " + eleccion + " = ? where id = ?");
-            prepStat.setString(1, stockCambiado);
+            prepStat.setString(1, opcionCambiada);
             prepStat.setInt(2, idElegida);
             prepStat.executeUpdate();
+            streamBuffer("Has hecho un update con la id = " + idElegida + " y el nuevo " + eleccion + " = " + opcionCambiada); //guardamos un log para saber que has modificado
         } catch (NumberFormatException nfe) {
             System.out.println("--------------------------------");
         }
     }
 
-    public static void rellenarObjeto(String seleccion) throws SQLException { //Funciona menos alimentos por la fecha
+    public static void rellenarObjeto(String seleccion) throws SQLException, IOException { //Funciona menos alimentos por la fecha
         try (Connection con = crearConexion()) {
             //mostrar la informacion de todos los objetos
             PreparedStatement prepStat = con.prepareStatement("SELECT * FROM " + seleccion);
@@ -165,7 +166,7 @@ public class OpcionesAdministrador {
             //pedir stock para sumar
             System.out.println("Dime cuanto quieres aumentar el stock:");
             int aumentoStock = Integer.parseInt(lector.nextLine());
-            prepStat = con.prepareStatement("SELECT Stock FROM alimentos where Id = ?;");
+            prepStat = con.prepareStatement("SELECT Stock FROM " + seleccion + " where Id = ?;");
             prepStat.setInt(1, idElegida);
             results = prepStat.executeQuery();
             results.next(); //No funciona el update y el while de aqui no esta bien
@@ -175,12 +176,13 @@ public class OpcionesAdministrador {
             prepStat.setInt(1, stockTotal);
             prepStat.setInt(2, idElegida);
             prepStat.executeUpdate();
+            streamBuffer("Has hecho un update con la id = " + idElegida + " y has aumentado el stock a " + stockTotal); // Con esto guardamos el total despues de rellenar
         } catch (NumberFormatException nfe) {
             System.out.println("--------------------------------");
         }
     }
 
-    public static void quitarObjeto(String seleccion) throws SQLException { //Este deberia funcionaros
+    public static void quitarObjeto(String seleccion) throws SQLException, IOException { //Este deberia funcionaros
         try (Connection con = crearConexion()) {
             //mostrar la informacion de todos los objetos
             PreparedStatement prepStat = con.prepareStatement("SELECT * FROM " + seleccion);
@@ -206,9 +208,10 @@ public class OpcionesAdministrador {
                     + "o dime una letra para volver atras:");
             int idElegida = Integer.parseInt(lector.nextLine());
             //en teoria esto lo borra.
-            prepStat = con.prepareStatement("DELETE FROM " + seleccion + " where ?");
+            prepStat = con.prepareStatement("DELETE FROM " + seleccion + " where id = ?");
             prepStat.setInt(1, idElegida);
             prepStat.executeUpdate();
+            streamBuffer("Has hecho un delete de este objeto: " + idElegida + " | tabla: " + seleccion); // guardamos lo que se borra
         } catch (NumberFormatException nfe) {
             System.out.println("--------------------------------");
         }

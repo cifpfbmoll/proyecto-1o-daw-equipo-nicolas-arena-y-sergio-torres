@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Date;
 
 /**
  *
@@ -17,11 +18,12 @@ import java.io.IOException;
  */
 public class Streams {
 
-    static String rutaDestino = "Log.txt";
-
     public static void streamBuffer(String mensaje) throws FileNotFoundException, IOException { // probando
-        File salida = new File(rutaDestino);
-        BufferedWriter escribir = new BufferedWriter(new FileWriter(salida));
-        escribir.write(mensaje);
+        try (BufferedWriter escritor = new BufferedWriter(new FileWriter("Log.txt", true))) {
+            Date fecha = new Date();
+            escritor.write(fecha.toString() + " | " + mensaje);
+            escritor.newLine();
+            escritor.newLine();
+        }
     }
 }

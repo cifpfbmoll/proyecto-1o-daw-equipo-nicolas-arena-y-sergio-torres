@@ -5,6 +5,7 @@
  */
 package proyecto.almacen;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 import static proyecto.almacen.Menus.crearConexion;
 import static proyecto.almacen.Menus.menuPrecio;
+import static proyecto.almacen.Streams.streamBuffer;
 
 /**
  *
@@ -27,7 +29,7 @@ public class OpcionesUsuario {
      *
      * @throws SQLException
      */
-    public static void comprarAlimentos() throws SQLException {
+    public static void comprarAlimentos() throws SQLException, IOException {
         try (Connection con = crearConexion()) {
             PreparedStatement prepStat = con.prepareStatement("SELECT * FROM alimentos;");
             ResultSet results = prepStat.executeQuery();
@@ -55,12 +57,13 @@ public class OpcionesUsuario {
             prepStat = con.prepareStatement("UPDATE alimentos SET Stock = ? where id = ?");
             prepStat.setInt(1, compra);
             prepStat.setInt(2, pedido);
+            streamBuffer("El usuario a comprado " + cantidad + " de la tabla: alimentos el objeto con la id = " + pedido); // Con esto guardamos lo que se ha comprado
         } catch (NumberFormatException nfe) {
             System.out.println("--------------------------------");
         }
     }
 
-    public static void comprarMobiliario() throws SQLException {
+    public static void comprarMobiliario() throws SQLException, IOException {
         try (Connection con = crearConexion()) {
             PreparedStatement prepStat = con.prepareStatement("SELECT * FROM muebles;");
             ResultSet results = prepStat.executeQuery();
@@ -102,12 +105,13 @@ public class OpcionesUsuario {
                     System.out.println("Has salido sin comprar");
                 }
             }
+            streamBuffer("El usuario a comprado " + cantidad + " de la tabla: muebles el objeto con la id = " + pedido);
         } catch (NumberFormatException nfe) {
             System.out.println("--------------------------------");
         }
     }
 
-    public static void comprarJuguetes() throws SQLException {
+    public static void comprarJuguetes() throws SQLException, IOException {
         try (Connection con = crearConexion()) {
             PreparedStatement prepStat = con.prepareStatement("SELECT * FROM juguetes;");
             ResultSet results = prepStat.executeQuery();
@@ -134,12 +138,13 @@ public class OpcionesUsuario {
             prepStat = con.prepareStatement("UPDATE jugetes SET Stock = ? where id = ?");
             prepStat.setInt(1, compra);
             prepStat.setInt(2, pedido);
+            streamBuffer("El usuario a comprado " + cantidad + " de la tabla: juguetes el objeto con la id = " + pedido);
         } catch (NumberFormatException nfe) {
             System.out.println("--------------------------------");
         }
     }
 
-    public static void comprarRopa() throws SQLException {
+    public static void comprarRopa() throws SQLException, IOException {
         try (Connection con = crearConexion()) {
             PreparedStatement prepStat = con.prepareStatement("SELECT * FROM ropa;");
             ResultSet results = prepStat.executeQuery();
@@ -167,6 +172,7 @@ public class OpcionesUsuario {
             prepStat = con.prepareStatement("UPDATE ropa SET Stock = ? where id = ?");
             prepStat.setInt(1, compra);
             prepStat.setInt(2, pedido);
+            streamBuffer("El usuario a comprado " + cantidad + " de la tabla: ropa el objeto con la id = " + pedido);
         } catch (NumberFormatException nfe) {
             System.out.println("--------------------------------");
         }

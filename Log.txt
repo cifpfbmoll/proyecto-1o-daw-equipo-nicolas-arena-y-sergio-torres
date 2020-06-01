@@ -1,0 +1,18 @@
+Mon Jun 01 18:01:40 CEST 2020 | Has hecho un insert con la id = 2 y con el nombre = chandal uwu
+
+Mon Jun 01 18:02:59 CEST 2020 | Has hecho un update con la id = 1 y el nuevo Stock = 50
+
+Mon Jun 01 18:05:57 CEST 2020 | Has hecho un update con la id = 2 y has aumentado el stock a 12
+
+Mon Jun 01 18:08:39 CEST 2020 | Has hecho un update con la id = 2 y has aumentado el stock a 20
+
+Mon Jun 01 18:20:57 CEST 2020 | Has hecho un insert con la id = 1 y con el nombre = armario barroco
+
+Mon Jun 01 18:21:27 CEST 2020 | Has hecho un insert con la id = 2 y con el nombre = mesa circular
+
+Mon Jun 01 18:22:07 CEST 2020 | Has hecho un insert con la id = 3 y con el nombre = mesa peque�a
+
+Mon Jun 01 18:22:49 CEST 2020 | Has hecho un delete de este objeto: 3 | com.mysql.jdbc.JDBC42ResultSet@69d0a921
+
+Mon Jun 01 18:24:58 CEST 2020 | Has hecho un delete de este objeto: 2 | tabla: muebles
+
