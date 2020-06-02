@@ -16,3 +16,15 @@ Mon Jun 01 18:22:49 CEST 2020 | Has hecho un delete de este objeto: 3 | com.mysq
 
 Mon Jun 01 18:24:58 CEST 2020 | Has hecho un delete de este objeto: 2 | tabla: muebles
 
+Tue Jun 02 17:10:30 CEST 2020 | El usuario a comprado 2 de la tabla: muebles el objeto con la id = 1
+
+Tue Jun 02 17:34:07 CEST 2020 | El usuario a comprado 2 de la tabla: muebles el objeto con la id = 1
+
+Tue Jun 02 17:39:16 CEST 2020 | El usuario a comprado 2 de la tabla: muebles el objeto con la id = 1
+
+Tue Jun 02 18:04:51 CEST 2020 | El usuario a comprado 1 de la tabla: alimentos el objeto con la id = 1
+
+Tue Jun 02 18:08:40 CEST 2020 | El usuario a comprado 5 de la tabla: juguetes el objeto con la id = 1
+
+Tue Jun 02 18:09:11 CEST 2020 | El usuario a comprado 10 de la tabla: ropa el objeto con la id = 1
+

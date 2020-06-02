@@ -48,15 +48,30 @@ public class OpcionesUsuario {
             System.out.println("----------------------------");
             System.out.println("Dime la cantidad que quieres comprar:");
             int cantidad = Integer.parseInt(lector.nextLine());
-            prepStat = con.prepareStatement("SELECT Stock FROM alimentos where Id = ?;");
+            prepStat = con.prepareStatement("SELECT Precio FROM alimentos where Id = ?;");
             prepStat.setInt(1, pedido);
             results = prepStat.executeQuery();
-            results.next(); //revisar
-            int stock = results.getInt("Stock");
-            int compra = stock - cantidad;
-            prepStat = con.prepareStatement("UPDATE alimentos SET Stock = ? where id = ?");
-            prepStat.setInt(1, compra);
-            prepStat.setInt(2, pedido);
+            while (results.next()) { //revisar
+                int precio = results.getInt("Precio");
+                boolean eleccion = menuPrecio(precio, cantidad);
+                if (eleccion == true) {
+                    prepStat = con.prepareStatement("SELECT Stock FROM alimentos where Id = ?;");
+                    prepStat.setInt(1, pedido);
+                    results = prepStat.executeQuery();
+                    int compra = 0;
+                    int stock = 0;
+                    while (results.next()) {
+                        stock = results.getInt("Stock");
+                        compra = stock - cantidad;
+                        prepStat = con.prepareStatement("UPDATE alimentos SET Stock = ? where id = ?");
+                        prepStat.setInt(1, compra);
+                        prepStat.setInt(2, pedido);
+                        prepStat.executeUpdate();
+                    }
+                } else {
+                    System.out.println("Has salido sin comprar");
+                }
+            }
             streamBuffer("El usuario a comprado " + cantidad + " de la tabla: alimentos el objeto con la id = " + pedido); // Con esto guardamos lo que se ha comprado
         } catch (NumberFormatException nfe) {
             System.out.println("--------------------------------");
@@ -100,6 +115,7 @@ public class OpcionesUsuario {
                         prepStat = con.prepareStatement("UPDATE muebles SET Stock = ? where id = ?");
                         prepStat.setInt(1, compra);
                         prepStat.setInt(2, pedido);
+                        prepStat.executeUpdate();
                     }
                 } else {
                     System.out.println("Has salido sin comprar");
@@ -129,15 +145,30 @@ public class OpcionesUsuario {
             System.out.println("----------------------------");
             System.out.println("Dime la cantidad que quieres comprar:");
             int cantidad = Integer.parseInt(lector.nextLine());
-            prepStat = con.prepareStatement("SELECT Stock FROM juguetes where Id = ?;");
+            prepStat = con.prepareStatement("SELECT Precio FROM juguetes where Id = ?;");
             prepStat.setInt(1, pedido);
             results = prepStat.executeQuery();
-            results.next(); //esta mal
-            int stock = results.getInt("Stock");
-            int compra = stock - cantidad;
-            prepStat = con.prepareStatement("UPDATE jugetes SET Stock = ? where id = ?");
-            prepStat.setInt(1, compra);
-            prepStat.setInt(2, pedido);
+            while (results.next()) { //revisar
+                int precio = results.getInt("Precio");
+                boolean eleccion = menuPrecio(precio, cantidad);
+                if (eleccion == true) {
+                    prepStat = con.prepareStatement("SELECT Stock FROM juguetes where Id = ?;");
+                    prepStat.setInt(1, pedido);
+                    results = prepStat.executeQuery();
+                    int compra = 0;
+                    int stock = 0;
+                    while (results.next()) {
+                        stock = results.getInt("Stock");
+                        compra = stock - cantidad;
+                        prepStat = con.prepareStatement("UPDATE juguetes SET Stock = ? where id = ?");
+                        prepStat.setInt(1, compra);
+                        prepStat.setInt(2, pedido);
+                        prepStat.executeUpdate();
+                    }
+                } else {
+                    System.out.println("Has salido sin comprar");
+                }
+            }
             streamBuffer("El usuario a comprado " + cantidad + " de la tabla: juguetes el objeto con la id = " + pedido);
         } catch (NumberFormatException nfe) {
             System.out.println("--------------------------------");
@@ -163,15 +194,30 @@ public class OpcionesUsuario {
             System.out.println("----------------------------");
             System.out.println("Dime la cantidad que quieres comprar:");
             int cantidad = Integer.parseInt(lector.nextLine());
-            prepStat = con.prepareStatement("SELECT Stock FROM ropa where Id = ?;");
+            prepStat = con.prepareStatement("SELECT Precio FROM ropa where Id = ?;");
             prepStat.setInt(1, pedido);
             results = prepStat.executeQuery();
-            results.next(); //revisar
-            int stock = results.getInt("Stock");
-            int compra = stock - cantidad;
-            prepStat = con.prepareStatement("UPDATE ropa SET Stock = ? where id = ?");
-            prepStat.setInt(1, compra);
-            prepStat.setInt(2, pedido);
+            while (results.next()) { //revisar
+                int precio = results.getInt("Precio");
+                boolean eleccion = menuPrecio(precio, cantidad);
+                if (eleccion == true) {
+                    prepStat = con.prepareStatement("SELECT Stock FROM ropa where Id = ?;");
+                    prepStat.setInt(1, pedido);
+                    results = prepStat.executeQuery();
+                    int compra = 0;
+                    int stock = 0;
+                    while (results.next()) {
+                        stock = results.getInt("Stock");
+                        compra = stock - cantidad;
+                        prepStat = con.prepareStatement("UPDATE ropa SET Stock = ? where id = ?");
+                        prepStat.setInt(1, compra);
+                        prepStat.setInt(2, pedido);
+                        prepStat.executeUpdate();
+                    }
+                } else {
+                    System.out.println("Has salido sin comprar");
+                }
+            }
             streamBuffer("El usuario a comprado " + cantidad + " de la tabla: ropa el objeto con la id = " + pedido);
         } catch (NumberFormatException nfe) {
             System.out.println("--------------------------------");
