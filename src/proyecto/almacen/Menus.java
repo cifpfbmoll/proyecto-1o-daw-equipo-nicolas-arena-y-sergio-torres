@@ -101,7 +101,7 @@ public class Menus {
         return confirmacion;
     }
 
-    public static void menuUsuario() throws SQLException {
+    public static void menuUsuario() throws SQLException, IOException {
         boolean salir = false;
         int opcion; //Guardaremos la opcion del usuario
 
