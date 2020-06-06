@@ -25,9 +25,9 @@ public class OpcionesUsuario {
     static Scanner lector = new Scanner(System.in);
 
     /**
-     * Con esto compramos los alimentos
-     *
+     * Con este metodo el usuario compra los alimentos.
      * @throws SQLException
+     * @throws IOException 
      */
     public static void comprarAlimentos() throws SQLException, IOException {
         try (Connection con = crearConexion()) {
@@ -78,6 +78,11 @@ public class OpcionesUsuario {
         }
     }
 
+    /**
+     * Con este metodo el usuario compra los muebles.
+     * @throws SQLException
+     * @throws IOException 
+     */
     public static void comprarMobiliario() throws SQLException, IOException {
         try (Connection con = crearConexion()) {
             PreparedStatement prepStat = con.prepareStatement("SELECT * FROM muebles;");
@@ -127,6 +132,11 @@ public class OpcionesUsuario {
         }
     }
 
+    /**
+     * Con este metodo el usuario compra los juguetes.
+     * @throws SQLException
+     * @throws IOException 
+     */
     public static void comprarJuguetes() throws SQLException, IOException {
         try (Connection con = crearConexion()) {
             PreparedStatement prepStat = con.prepareStatement("SELECT * FROM juguetes;");
@@ -175,6 +185,11 @@ public class OpcionesUsuario {
         }
     }
 
+    /**
+     * Con este metodo el usuario compra la ropa
+     * @throws SQLException
+     * @throws IOException 
+     */
     public static void comprarRopa() throws SQLException, IOException {
         try (Connection con = crearConexion()) {
             PreparedStatement prepStat = con.prepareStatement("SELECT * FROM ropa;");

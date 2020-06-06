@@ -31,6 +31,8 @@ public class Menus {
     static Scanner lector = new Scanner(System.in);
 
     /**
+     * El programa empieza preguntando al usuario si quiere actuar como un
+     * usuario normal o como administrador.
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -86,11 +88,22 @@ public class Menus {
         }
     }
 
+    /**
+     * Es un metodo donde se crea la conexion con la base de datos, se hace aqui
+     * para no tener que repetirlo todo el rato.
+     * @return Devuelve la conexion
+     * @throws SQLException 
+     */
     public static Connection crearConexion() throws SQLException {
         String url = "jdbc:mysql://localhost:3306/granalmacen";
         return DriverManager.getConnection(url, "root", "");//Hay que probarlo
     }
 
+    /**
+     * Es un metodo donde te pide la contraseña del administrador y comprueba si
+     * esta bien puesta.
+     * @return devuelve un boolan donde te dara true si la comprobacion esta bien y false si esta mal
+     */
     public static boolean pedirContraseña() {
         boolean confirmacion = false;
         System.out.println("Dime la contraseña:");
@@ -101,6 +114,11 @@ public class Menus {
         return confirmacion;
     }
 
+    /**
+     * Este es el menu del usuario, contiene todas las acciones que puede hacer.
+     * @throws SQLException
+     * @throws IOException 
+     */
     public static void menuUsuario() throws SQLException, IOException {
         boolean salir = false;
         int opcion; //Guardaremos la opcion del usuario
@@ -150,6 +168,11 @@ public class Menus {
         }
     }
 
+    /**
+     * Es el menu de administrador, contiene todas las acciones que puede hacer.
+     * @throws SQLException
+     * @throws IOException 
+     */
     public static void menuAdministrador() throws SQLException, IOException {
         boolean salir = false;
         int opcion; //Guardaremos la opcion del usuario
@@ -200,7 +223,12 @@ public class Menus {
         }
     }
 
-    public static String seleccionObjeto() { //Hay que hacer un menu
+    /**
+     * Este se un menu donde seleccionas el objeto el cual quieres uaar en
+     * la accion que has solicitado anteriormente.
+     * @return 
+     */
+    public static String seleccionObjeto() {
         boolean salir = false;
         int opcion; //Guardaremos la opcion del usuario
 
@@ -256,6 +284,12 @@ public class Menus {
         return seleccion;
     }
 
+    /**
+     * Este es el menu para seleccionar lo que quieres cambiar de
+     * las caracteristicas de cada objeto.
+     * @param seleccion es una variable usada para saber que objeto has seleccionado anteriormente y asi enseñarte sus caracteristicas propias.
+     * @return devuelve la caracteristica que has seleccionado.
+     */
     public static String menuCambio(String seleccion) {
         String eleccion = "";
         boolean salir = false;
@@ -336,6 +370,12 @@ public class Menus {
         return eleccion;
     }
 
+    /**
+     * Este es el menu usado para confirmar la compra del usuario.
+     * @param precio Este es el precio del producto individual.
+     * @param cantidad Esta es la cantidad total usada junto con el precio para calcular el precio total de la compra.
+     * @return devuelve la eleccion de si quiere comprar o no con un booleano.
+     */
     public static boolean menuPrecio(int precio, int cantidad) { //Hay que hacer un menu
         boolean salir = false;
         int opcion; //Guardaremos la opcion del usuario

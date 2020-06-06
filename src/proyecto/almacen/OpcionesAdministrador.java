@@ -28,6 +28,14 @@ public class OpcionesAdministrador {
 
     static Scanner lector = new Scanner(System.in);
 
+    /**
+     * Con este metodo el administrador puede crear un objeto nuevo de los que hay y guardarlo en la base de datos.
+     * @param seleccion es la seleccion del objeto que quiere crear, al usar
+     * esta variable te saldran las caracteristicas del objeto en concreto
+     * para que lo rellenes. 
+     * @throws SQLException
+     * @throws IOException 
+     */
     public static void crearObjeto(String seleccion) throws SQLException, IOException {
         System.out.println("Dime la id que quieres poner:");
         int id = Integer.parseInt(lector.nextLine());
@@ -88,6 +96,12 @@ public class OpcionesAdministrador {
         streamBuffer("Has hecho un insert con la id = " + id + " y con el nombre = " + nombre); // guardamos en un log que has creado un objeto
     }
 
+    /**
+     * Este es un metodo con el que transformamos la fecha que es un string en una
+     * fecha que es posible insertar en la base de datos.
+     * @param texto es la fecha de caducidad que es un string que le pasas al metodo.
+     * @return devuelve la fehca transformada en un Date
+     */
     public static Date parseFecha(String texto) { //Funciona pero sale un error extraño
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         Date fechaDate = null;
@@ -99,6 +113,12 @@ public class OpcionesAdministrador {
         return fechaDate;
     }
 
+    /**
+     * Con este metodo el administrador puede modificar lo que quiera de los objetos en la base de datos.
+     * @param seleccion Con esto seleccionas el tipo de objeto de la base de datos.
+     * @throws SQLException
+     * @throws IOException 
+     */
     public static void modificarObjeto(String seleccion) throws SQLException, IOException { //Funciona menos alimentos por la fecha
         try (Connection con = crearConexion()) {
             //mostrar la informacion de todos los objetos
@@ -138,6 +158,12 @@ public class OpcionesAdministrador {
         }
     }
 
+    /**
+     * Con este metodo el administrador puede rellenar/aumentar el stock de algun objeto de la base de datos.
+     * @param seleccion este es el tipo de objeto de la base de datos
+     * @throws SQLException
+     * @throws IOException 
+     */
     public static void rellenarObjeto(String seleccion) throws SQLException, IOException { //Funciona menos alimentos por la fecha
         try (Connection con = crearConexion()) {
             //mostrar la informacion de todos los objetos
@@ -182,6 +208,12 @@ public class OpcionesAdministrador {
         }
     }
 
+    /**
+     * Este es un metodo con el que el administrador puede quitar un objeto de la base de datos.
+     * @param seleccion Con esto seleccionas el tipo de objeto.
+     * @throws SQLException
+     * @throws IOException 
+     */
     public static void quitarObjeto(String seleccion) throws SQLException, IOException { //Este deberia funcionaros
         try (Connection con = crearConexion()) {
             //mostrar la informacion de todos los objetos
