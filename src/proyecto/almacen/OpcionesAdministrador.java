@@ -27,12 +27,14 @@ public class OpcionesAdministrador {
     static Scanner lector = new Scanner(System.in);
 
     /**
-     * Con este metodo el administrador puede crear un objeto nuevo de los que hay y guardarlo en la base de datos.
+     * Con este metodo el administrador puede crear un objeto nuevo de los que
+     * hay y guardarlo en la base de datos.
+     *
      * @param seleccion es la seleccion del objeto que quiere crear, al usar
-     * esta variable te saldran las caracteristicas del objeto en concreto
-     * para que lo rellenes. 
+     * esta variable te saldran las caracteristicas del objeto en concreto para
+     * que lo rellenes.
      * @throws SQLException
-     * @throws IOException 
+     * @throws IOException
      */
     public static void crearObjeto(String seleccion) throws SQLException, IOException {
         System.out.println("Dime la id que quieres poner:");
@@ -95,9 +97,11 @@ public class OpcionesAdministrador {
     }
 
     /**
-     * Este es un metodo con el que transformamos la fecha que es un string en una
-     * fecha que es posible insertar en la base de datos.
-     * @param texto es la fecha de caducidad que es un string que le pasas al metodo.
+     * Este es un metodo con el que transformamos la fecha que es un string en
+     * una fecha que es posible insertar en la base de datos.
+     *
+     * @param texto es la fecha de caducidad que es un string que le pasas al
+     * metodo.
      * @return devuelve la fehca transformada en un Date
      */
     public static Date parseFecha(String texto) { //Funciona pero sale un error extraño
@@ -112,10 +116,13 @@ public class OpcionesAdministrador {
     }
 
     /**
-     * Con este metodo el administrador puede modificar lo que quiera de los objetos en la base de datos.
-     * @param seleccion Con esto seleccionas el tipo de objeto de la base de datos.
+     * Con este metodo el administrador puede modificar lo que quiera de los
+     * objetos en la base de datos.
+     *
+     * @param seleccion Con esto seleccionas el tipo de objeto de la base de
+     * datos.
      * @throws SQLException
-     * @throws IOException 
+     * @throws IOException
      */
     public static void modificarObjeto(String seleccion) throws SQLException, IOException { //Funciona menos alimentos por la fecha
         try (Connection con = crearConexion()) {
@@ -144,23 +151,27 @@ public class OpcionesAdministrador {
             int idElegida = Integer.parseInt(lector.nextLine());
             System.out.println("Dime que quieres cambiar");
             String eleccion = menuCambio(seleccion);
-            System.out.println("Dime el " + eleccion + " nuevo que le quieres poner:");
-            String opcionCambiada = lector.nextLine();
-            prepStat = con.prepareStatement("UPDATE " + seleccion + " SET " + eleccion + " = ? where id = ?");
-            prepStat.setString(1, opcionCambiada);
-            prepStat.setInt(2, idElegida);
-            prepStat.executeUpdate();
-            streamBuffer("Has hecho un update con la id = " + idElegida + " y el nuevo " + eleccion + " = " + opcionCambiada); //guardamos un log para saber que has modificado
+            if (!"".equals(eleccion)) {
+                System.out.println("Dime el " + eleccion + " nuevo que le quieres poner:");
+                String opcionCambiada = lector.nextLine();
+                prepStat = con.prepareStatement("UPDATE " + seleccion + " SET " + eleccion + " = ? where id = ?");
+                prepStat.setString(1, opcionCambiada);
+                prepStat.setInt(2, idElegida);
+                prepStat.executeUpdate();
+                streamBuffer("Has hecho un update con la id = " + idElegida + " y el nuevo " + eleccion + " = " + opcionCambiada); //guardamos un log para saber que has modificado
+            }
         } catch (NumberFormatException nfe) {
             System.out.println("--------------------------------");
         }
     }
 
     /**
-     * Con este metodo el administrador puede rellenar/aumentar el stock de algun objeto de la base de datos.
+     * Con este metodo el administrador puede rellenar/aumentar el stock de
+     * algun objeto de la base de datos.
+     *
      * @param seleccion este es el tipo de objeto de la base de datos
      * @throws SQLException
-     * @throws IOException 
+     * @throws IOException
      */
     public static void rellenarObjeto(String seleccion) throws SQLException, IOException { //Funciona menos alimentos por la fecha
         try (Connection con = crearConexion()) {
@@ -207,10 +218,12 @@ public class OpcionesAdministrador {
     }
 
     /**
-     * Este es un metodo con el que el administrador puede quitar un objeto de la base de datos.
+     * Este es un metodo con el que el administrador puede quitar un objeto de
+     * la base de datos.
+     *
      * @param seleccion Con esto seleccionas el tipo de objeto.
      * @throws SQLException
-     * @throws IOException 
+     * @throws IOException
      */
     public static void quitarObjeto(String seleccion) throws SQLException, IOException { //Este deberia funcionaros
         try (Connection con = crearConexion()) {
