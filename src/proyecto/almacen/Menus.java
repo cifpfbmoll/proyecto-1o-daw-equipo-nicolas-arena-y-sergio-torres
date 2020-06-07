@@ -43,7 +43,6 @@ public class Menus {
 
         while (!salir) {
 
-            System.out.println("No usar nada de alimentos porque no funciona por un error en la fecha");
             System.out.println("Como desea iniciar sesion:");
             System.out.println("    1. Usuario");
             System.out.println("    2. Administrador");
