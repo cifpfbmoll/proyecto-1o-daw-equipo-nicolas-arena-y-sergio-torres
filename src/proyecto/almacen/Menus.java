@@ -375,10 +375,10 @@ public class Menus {
      * @param cantidad Esta es la cantidad total usada junto con el precio para calcular el precio total de la compra.
      * @return devuelve la eleccion de si quiere comprar o no con un booleano.
      */
-    public static boolean menuPrecio(int precio, int cantidad) { //Hay que hacer un menu
+    public static boolean menuPrecio(float precio, int cantidad) { //Hay que hacer un menu
         boolean salir = false;
         int opcion; //Guardaremos la opcion del usuario
-        int total = precio * cantidad;
+        float total = precio * cantidad;
 
         boolean eleccion = false;
 
