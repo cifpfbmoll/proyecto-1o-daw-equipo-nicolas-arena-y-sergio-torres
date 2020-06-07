@@ -26,8 +26,9 @@ public class OpcionesUsuario {
 
     /**
      * Con este metodo el usuario compra los alimentos.
+     *
      * @throws SQLException
-     * @throws IOException 
+     * @throws IOException
      */
     public static void comprarAlimentos() throws SQLException, IOException {
         try (Connection con = crearConexion()) {
@@ -62,11 +63,17 @@ public class OpcionesUsuario {
                     int stock = 0;
                     while (results.next()) {
                         stock = results.getInt("Stock");
-                        compra = stock - cantidad;
-                        prepStat = con.prepareStatement("UPDATE alimentos SET Stock = ? where id = ?");
-                        prepStat.setInt(1, compra);
-                        prepStat.setInt(2, pedido);
-                        prepStat.executeUpdate();
+                        if (stock < cantidad) {
+                            System.out.println("--------------------------------");
+                            System.out.println("La cantidad es superior al stock.");
+                            System.out.println("--------------------------------");
+                        } else {
+                            compra = stock - cantidad;
+                            prepStat = con.prepareStatement("UPDATE alimentos SET Stock = ? where id = ?");
+                            prepStat.setInt(1, compra);
+                            prepStat.setInt(2, pedido);
+                            prepStat.executeUpdate();
+                        }
                     }
                 } else {
                     System.out.println("Has salido sin comprar");
@@ -80,8 +87,9 @@ public class OpcionesUsuario {
 
     /**
      * Con este metodo el usuario compra los muebles.
+     *
      * @throws SQLException
-     * @throws IOException 
+     * @throws IOException
      */
     public static void comprarMobiliario() throws SQLException, IOException {
         try (Connection con = crearConexion()) {
@@ -116,11 +124,17 @@ public class OpcionesUsuario {
                     int stock = 0;
                     while (results.next()) {
                         stock = results.getInt("Stock");
-                        compra = stock - cantidad;
-                        prepStat = con.prepareStatement("UPDATE muebles SET Stock = ? where id = ?");
-                        prepStat.setInt(1, compra);
-                        prepStat.setInt(2, pedido);
-                        prepStat.executeUpdate();
+                        if (stock < cantidad) {
+                            System.out.println("--------------------------------");
+                            System.out.println("La cantidad es superior al stock.");
+                            System.out.println("--------------------------------");
+                        } else {
+                            compra = stock - cantidad;
+                            prepStat = con.prepareStatement("UPDATE muebles SET Stock = ? where id = ?");
+                            prepStat.setInt(1, compra);
+                            prepStat.setInt(2, pedido);
+                            prepStat.executeUpdate();
+                        }
                     }
                 } else {
                     System.out.println("Has salido sin comprar");
@@ -134,8 +148,9 @@ public class OpcionesUsuario {
 
     /**
      * Con este metodo el usuario compra los juguetes.
+     *
      * @throws SQLException
-     * @throws IOException 
+     * @throws IOException
      */
     public static void comprarJuguetes() throws SQLException, IOException {
         try (Connection con = crearConexion()) {
@@ -169,11 +184,17 @@ public class OpcionesUsuario {
                     int stock = 0;
                     while (results.next()) {
                         stock = results.getInt("Stock");
-                        compra = stock - cantidad;
-                        prepStat = con.prepareStatement("UPDATE juguetes SET Stock = ? where id = ?");
-                        prepStat.setInt(1, compra);
-                        prepStat.setInt(2, pedido);
-                        prepStat.executeUpdate();
+                        if (stock < cantidad) {
+                            System.out.println("--------------------------------");
+                            System.out.println("La cantidad es superior al stock.");
+                            System.out.println("--------------------------------");
+                        } else {
+                            compra = stock - cantidad;
+                            prepStat = con.prepareStatement("UPDATE juguetes SET Stock = ? where id = ?");
+                            prepStat.setInt(1, compra);
+                            prepStat.setInt(2, pedido);
+                            prepStat.executeUpdate();
+                        }
                     }
                 } else {
                     System.out.println("Has salido sin comprar");
@@ -187,8 +208,9 @@ public class OpcionesUsuario {
 
     /**
      * Con este metodo el usuario compra la ropa
+     *
      * @throws SQLException
-     * @throws IOException 
+     * @throws IOException
      */
     public static void comprarRopa() throws SQLException, IOException {
         try (Connection con = crearConexion()) {
@@ -223,11 +245,17 @@ public class OpcionesUsuario {
                     int stock = 0;
                     while (results.next()) {
                         stock = results.getInt("Stock");
-                        compra = stock - cantidad;
-                        prepStat = con.prepareStatement("UPDATE ropa SET Stock = ? where id = ?");
-                        prepStat.setInt(1, compra);
-                        prepStat.setInt(2, pedido);
-                        prepStat.executeUpdate();
+                        if (stock < cantidad) {
+                            System.out.println("--------------------------------");
+                            System.out.println("La cantidad es superior al stock.");
+                            System.out.println("--------------------------------");
+                        } else {
+                            compra = stock - cantidad;
+                            prepStat = con.prepareStatement("UPDATE ropa SET Stock = ? where id = ?");
+                            prepStat.setInt(1, compra);
+                            prepStat.setInt(2, pedido);
+                            prepStat.executeUpdate();
+                        }
                     }
                 } else {
                     System.out.println("Has salido sin comprar");
