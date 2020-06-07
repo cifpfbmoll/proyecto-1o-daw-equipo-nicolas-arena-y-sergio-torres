@@ -7,7 +7,6 @@ package proyecto.almacen;
 
 import java.awt.Image;
 import java.awt.Toolkit;
-import javax.accessibility.AccessibleContext;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
