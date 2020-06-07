@@ -53,7 +53,7 @@ public class OpcionesUsuario {
             prepStat.setInt(1, pedido);
             results = prepStat.executeQuery();
             while (results.next()) { //revisar
-                int precio = results.getInt("Precio");
+                float precio = results.getInt("Precio");
                 boolean eleccion = menuPrecio(precio, cantidad);
                 if (eleccion == true) {
                     prepStat = con.prepareStatement("SELECT Stock FROM alimentos where Id = ?;");
@@ -114,7 +114,7 @@ public class OpcionesUsuario {
             prepStat.setInt(1, pedido);
             results = prepStat.executeQuery();
             while (results.next()) { //revisar, en los demas tambien hay que ponerlo
-                int precio = results.getInt("Precio");
+                float precio = results.getInt("Precio");
                 boolean eleccion = menuPrecio(precio, cantidad);
                 if (eleccion == true) {
                     prepStat = con.prepareStatement("SELECT Stock FROM muebles where Id = ?;");
@@ -174,7 +174,7 @@ public class OpcionesUsuario {
             prepStat.setInt(1, pedido);
             results = prepStat.executeQuery();
             while (results.next()) { //revisar
-                int precio = results.getInt("Precio");
+                float precio = results.getInt("Precio");
                 boolean eleccion = menuPrecio(precio, cantidad);
                 if (eleccion == true) {
                     prepStat = con.prepareStatement("SELECT Stock FROM juguetes where Id = ?;");
@@ -235,7 +235,7 @@ public class OpcionesUsuario {
             prepStat.setInt(1, pedido);
             results = prepStat.executeQuery();
             while (results.next()) { //revisar
-                int precio = results.getInt("Precio");
+                float precio = results.getInt("Precio");
                 boolean eleccion = menuPrecio(precio, cantidad);
                 if (eleccion == true) {
                     prepStat = con.prepareStatement("SELECT Stock FROM ropa where Id = ?;");
