@@ -8,12 +8,81 @@ package proyecto.almacen;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.accessibility.AccessibleContext;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 
 /**
  *
  * @author Nicolás
  */
 public class interfaz extends javax.swing.JFrame {
+
+    private String comparacion = "probando";
+
+    public JLabel getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(JLabel admin) {
+        this.admin = admin;
+    }
+
+    public JButton getBotonAdmin() {
+        return botonAdmin;
+    }
+
+    public void setBotonAdmin(JButton botonAdmin) {
+        this.botonAdmin = botonAdmin;
+    }
+
+    public JButton getBotonUsuario() {
+        return botonUsuario;
+    }
+
+    public void setBotonUsuario(JButton botonUsuario) {
+        this.botonUsuario = botonUsuario;
+    }
+
+    public String getContraseñaAdmin() {
+        return String.valueOf(contraseñaAdmin);
+    }
+
+    public void setContraseñaAdmin(JPasswordField contraseñaAdmin) {
+        this.contraseñaAdmin = contraseñaAdmin;
+    }
+
+    public JLabel getFondo() {
+        return fondo;
+    }
+
+    public void setFondo(JLabel fondo) {
+        this.fondo = fondo;
+    }
+
+    public JButton getjButton1() {
+        return jButton1;
+    }
+
+    public void setjButton1(JButton jButton1) {
+        this.jButton1 = jButton1;
+    }
+
+    public JLabel getPerroGafas() {
+        return perroGafas;
+    }
+
+    public void setPerroGafas(JLabel perroGafas) {
+        this.perroGafas = perroGafas;
+    }
+
+    public JLabel getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(JLabel usuario) {
+        this.usuario = usuario;
+    }
 
     /**
      * Creates new form interfaz
@@ -148,6 +217,13 @@ public class interfaz extends javax.swing.JFrame {
                 new interfaz().setVisible(true);
             }
         });
+    }
+
+    public static void validacion() {
+        boolean validar = false;
+
+        if (this.getContraseñaAdmin().equals(comparacion)) { //Nos falla
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
